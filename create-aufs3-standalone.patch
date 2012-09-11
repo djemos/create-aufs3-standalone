@@ -1,0 +1,26 @@
+#!/bin/sh
+
+CWD=$(pwd)
+dest=$CWD/aufs3.patch
+
+mkdir /tmp/aufs$$
+cd /tmp/aufs$$
+git clone git://aufs.git.sourceforge.net/gitroot/aufs/aufs3-standalone.git aufs3-standalone.git
+cd aufs3-standalone.git
+# uncomment line below to get aufs for stable kernel
+git checkout origin/aufs3.2
+# uncomment line below to get aufs for latest -rc kernel
+#git checkout origin/aufs3.x-rcN
+mkdir ../a ../b
+cp -r {Documentation,fs,include} ../b
+rm ../b/include/linux/Kbuild
+cd ..
+diff -rupN a/ b/ > $dest
+cat aufs3-standalone.git/aufs3-base.patch >> $dest
+cat aufs3-standalone.git/aufs3-standalone.patch >> $dest
+cat aufs3-standalone.git/aufs3-kbuild.patch >> $dest
+cat aufs3-standalone.git/aufs3-proc_map.patch >> $dest
+cat aufs3-standalone.git/aufs3-loopback.patch >> $dest
+rm -rf /tmp/aufs$$
+
+echo && echo "latest patch created as $dest"
