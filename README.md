@@ -1,3 +1,8 @@
+<<<<<<< HEAD
+=======
+create-aufs3-standalone
+=======================
+>>>>>>> 0b6c5c8a14875282615f7fc5d5083189ab32c3d8
 # Script to get the latest aufs3-standalone from git and create a tar.gz file to be userd from SLKBUILD 
 # to build the kernelive
 # aufs3 is for linux kernel 3.2 
